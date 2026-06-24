@@ -33,17 +33,12 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->brandName('Hunkie Productions')
             ->favicon(asset('favicon.ico'))
-            ->navigationGroups([
-                NavigationGroup::make('Content')
-                    ->icon('heroicon-o-document-text'),
-                NavigationGroup::make('Leads')
-                    ->icon('heroicon-o-inbox-arrow-down'),
-                NavigationGroup::make('Users')
-                    ->icon('heroicon-o-users'),
-                NavigationGroup::make('Structure')
-                    ->icon('heroicon-o-bars-3'),
-                NavigationGroup::make('System')
-                    ->icon('heroicon-o-cog-6-tooth'),
+             ->navigationGroups([
+                NavigationGroup::make('Content'),
+                NavigationGroup::make('Leads'),
+                NavigationGroup::make('Users'),
+                NavigationGroup::make('Structure'),
+                NavigationGroup::make('System'),
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
