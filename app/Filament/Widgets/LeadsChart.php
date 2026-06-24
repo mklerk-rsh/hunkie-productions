@@ -8,14 +8,16 @@ use Illuminate\Support\Facades\DB;
 
 class LeadsChart extends ChartWidget
 {
-    protected ?string $heading = 'Leads by Source';
+    protected ?string $heading = 'Leads by Status';
 
     protected function getData(): array
     {
-        $data = Lead::select('source', DB::raw('count(*) as total'))
-            ->groupBy('source')
-            ->pluck('total', 'source')
+        $data = Lead::select('status', DB::raw('count(*) as total'))
+            ->groupBy('status')
+            ->pluck('total', 'status')
             ->toArray();
+
+        $labels = array_map(fn ($s) => \App\Enums\LeadStatus::tryFrom($s)?->label() ?? ucfirst($s), array_keys($data));
 
         return [
             'datasets' => [
@@ -25,7 +27,7 @@ class LeadsChart extends ChartWidget
                     'backgroundColor' => ['#6366f1', '#22c55e', '#eab308', '#ef4444', '#ec4899'],
                 ],
             ],
-            'labels' => array_map(fn ($s) => ucfirst($s), array_keys($data)),
+            'labels' => $labels,
         ];
     }
 

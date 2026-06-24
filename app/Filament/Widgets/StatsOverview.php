@@ -19,10 +19,9 @@ class StatsOverview extends BaseWidget
                 ->descriptionIcon('heroicon-o-briefcase')
                 ->chart([7, 3, 10, 5, 15, 8, 12])
                 ->color('success'),
-            Stat::make('New Leads', Lead::where('status', \App\Enums\LeadStatus::New)->count())
-                ->description('Total: ' . Lead::count() . ' leads')
+            Stat::make('Total Leads', Lead::count())
+                ->description('New: ' . Lead::where('status', \App\Enums\LeadStatus::New)->count() . ' | Anonymous: ' . Lead::anonymous()->count())
                 ->descriptionIcon('heroicon-o-inbox-arrow-down')
-                ->chart([4, 7, 3, 8, 5, 10, 6])
                 ->color('warning'),
             Stat::make('Unread Messages', Contact::where('is_read', false)->count())
                 ->description('Total: ' . Contact::count() . ' messages')

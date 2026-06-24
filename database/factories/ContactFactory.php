@@ -18,6 +18,9 @@ class ContactFactory extends Factory
             'source' => fake()->randomElement(['website', 'blog', 'event']),
             'subscribed' => true,
             'opted_in' => true,
+            'subject' => fake()->sentence(4),
+            'message' => fake()->paragraph(3),
+            'is_read' => false,
         ];
     }
 
