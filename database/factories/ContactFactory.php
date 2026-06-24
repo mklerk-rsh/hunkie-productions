@@ -21,6 +21,8 @@ class ContactFactory extends Factory
             'subject' => fake()->sentence(4),
             'message' => fake()->paragraph(3),
             'is_read' => false,
+            'ip_address' => fake()->ipv4(),
+            'user_agent' => fake()->userAgent(),
         ];
     }
 

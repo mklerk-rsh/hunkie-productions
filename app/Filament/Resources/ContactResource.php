@@ -20,6 +20,7 @@ use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 
 class ContactResource extends Resource
 {
@@ -52,6 +53,17 @@ class ContactResource extends Resource
                             ->maxLength(255),
                         Textarea::make('message')
                             ->required()
+                            ->columnSpanFull(),
+                    ]),
+                Section::make('Tracking')
+                    ->hiddenOn('create')
+                    ->schema([
+                        TextInput::make('ip_address')
+                            ->label('IP Address')
+                            ->disabled(),
+                        TextInput::make('user_agent')
+                            ->label('User Agent')
+                            ->disabled()
                             ->columnSpanFull(),
                     ]),
             ]);
@@ -87,6 +99,11 @@ class ContactResource extends Resource
                     ->trueIcon('heroicon-o-document-arrow-down')
                     ->falseIcon('')
                     ->trueColor('success'),
+                TextColumn::make('ip_address')
+                    ->label('IP')
+                    ->searchable()
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

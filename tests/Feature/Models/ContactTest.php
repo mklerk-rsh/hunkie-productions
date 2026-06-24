@@ -84,4 +84,22 @@ class ContactTest extends TestCase
 
         $this->assertIsBool($contact->is_read);
     }
+
+    public function test_contact_has_ip_address()
+    {
+        $contact = Contact::factory()->create([
+            'ip_address' => '192.168.1.1',
+            'user_agent' => 'Mozilla/5.0 TestBrowser',
+        ]);
+
+        $this->assertEquals('192.168.1.1', $contact->ip_address);
+        $this->assertEquals('Mozilla/5.0 TestBrowser', $contact->user_agent);
+    }
+
+    public function test_ip_address_is_nullable()
+    {
+        $contact = Contact::factory()->create(['ip_address' => null]);
+
+        $this->assertNull($contact->ip_address);
+    }
 }

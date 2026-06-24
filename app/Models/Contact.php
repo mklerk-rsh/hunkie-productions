@@ -21,6 +21,8 @@ class Contact extends Model
         'message',
         'is_read',
         'replied_at',
+        'ip_address',
+        'user_agent',
     ];
 
     protected function casts(): array
