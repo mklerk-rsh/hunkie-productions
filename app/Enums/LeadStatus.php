@@ -11,6 +11,7 @@ enum LeadStatus: string
     case Negotiation = 'negotiation';
     case Won = 'won';
     case Lost = 'lost';
+    case Converted = 'converted';
 
     public function label(): string
     {
@@ -22,6 +23,7 @@ enum LeadStatus: string
             self::Negotiation => 'Negotiation',
             self::Won => 'Won',
             self::Lost => 'Lost',
+            self::Converted => 'Converted',
         };
     }
 
@@ -35,6 +37,7 @@ enum LeadStatus: string
             self::Negotiation => 'gray',
             self::Won => 'success',
             self::Lost => 'danger',
+            self::Converted => 'success',
         };
     }
 }
