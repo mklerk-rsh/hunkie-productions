@@ -52,7 +52,7 @@ class TagResource extends Resource
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('posts_count')
-                    ->counts('posts')
+                    ->counts('blogPosts')
                     ->label('Posts'),
                 TextColumn::make('created_at')
                     ->dateTime()

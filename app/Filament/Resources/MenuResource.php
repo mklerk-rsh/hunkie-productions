@@ -57,7 +57,7 @@ class MenuResource extends Resource
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('items_count')
-                    ->counts('items')
+                    ->counts('menuItems')
                     ->label('Items'),
                 IconColumn::make('is_active')
                     ->boolean()
