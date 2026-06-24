@@ -26,11 +26,12 @@ class ContactResource extends Resource
 {
     protected static ?string $model = Contact::class;
 
-    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-envelope';
-
-    protected static string|\UnitEnum|null $navigationGroup = 'Leads';
-
     protected static ?string $slug = 'contacts';
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
 
     public static function form(Schema $form): Schema
     {

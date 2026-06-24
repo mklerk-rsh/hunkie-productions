@@ -20,6 +20,8 @@ class ContactReply extends Model implements HasMedia
         'quotation_filename',
     ];
 
+    protected $touches = ['contact'];
+
     public function contact(): BelongsTo
     {
         return $this->belongsTo(Contact::class);
@@ -34,6 +36,8 @@ class ContactReply extends Model implements HasMedia
     {
         $this->addMediaCollection('quotations')
             ->singleFile();
+
+        $this->addMediaCollection('attachments');
     }
 
     public function hasQuotation(): bool
