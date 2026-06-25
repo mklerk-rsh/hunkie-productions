@@ -5,22 +5,21 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ContactResource\Pages;
 use App\Models\Contact;
 use App\Models\ContactReply;
-use Filament\Schemas\Components\Section;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\TextInput;
-use Filament\Schemas\Schema;
-use Filament\Resources\Resource;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
+use Filament\Resources\Resource;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
 
 class ContactResource extends Resource
 {
@@ -139,7 +138,7 @@ class ContactResource extends Resource
 
                         Notification::make()
                             ->title('Reply sent')
-                            ->body('Your reply has been sent to ' . $record->name)
+                            ->body('Your reply has been sent to '.$record->name)
                             ->success()
                             ->send();
                     })
@@ -150,7 +149,7 @@ class ContactResource extends Resource
                             ->rows(5)
                             ->columnSpanFull(),
                     ])
-                    ->modalHeading(fn (Contact $record) => 'Reply to ' . $record->name)
+                    ->modalHeading(fn (Contact $record) => 'Reply to '.$record->name)
                     ->modalWidth('lg')
                     ->modalIcon('heroicon-o-reply'),
                 Action::make('mark_read')

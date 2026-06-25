@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Services;
 
+use App\Enums\LeadStatus;
 use App\Models\Lead;
 use App\Models\User;
 use App\Services\LeadService;
@@ -59,7 +60,7 @@ class LeadServiceTest extends TestCase
     {
         $lead = Lead::factory()->new()->create();
 
-        $this->leadService->changeStatus($lead, \App\Enums\LeadStatus::Contacted);
+        $this->leadService->changeStatus($lead, LeadStatus::Contacted);
 
         $this->assertEquals('contacted', $lead->fresh()->status);
     }

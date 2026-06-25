@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use App\Enums\LeadSource;
-use App\Enums\LeadStatus;
 use App\Models\Lead;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class VisitorTrackingSeeder extends Seeder
@@ -78,7 +78,7 @@ class VisitorTrackingSeeder extends Seeder
         }
     }
 
-    private function createVisitor(\Carbon\Carbon $date): void
+    private function createVisitor(Carbon $date): void
     {
         $geo = fake()->randomElement($this->countries);
         $referrer = fake()->randomElement($this->referrers);

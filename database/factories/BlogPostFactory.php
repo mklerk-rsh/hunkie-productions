@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\BlogCategory;
 use App\Models\BlogPost;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -30,8 +32,8 @@ class BlogPostFactory extends Factory
             'slug' => Str::slug($title),
             'content' => fake()->paragraphs(8, true),
             'excerpt' => fake()->paragraph(2),
-            'blog_category_id' => \App\Models\BlogCategory::factory(),
-            'author_id' => \App\Models\User::factory(),
+            'blog_category_id' => BlogCategory::factory(),
+            'author_id' => User::factory(),
             'is_published' => fake()->boolean(80),
             'is_featured' => fake()->boolean(20),
             'published_at' => now()->subDays(fake()->numberBetween(1, 180)),

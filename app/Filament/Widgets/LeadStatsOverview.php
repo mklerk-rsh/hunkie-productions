@@ -8,16 +8,17 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class LeadStatsOverview extends BaseWidget
 {
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
+
     protected function getStats(): array
     {
         return [
             Stat::make('Total Visitors', Lead::count())
-                ->description('Anonymous: ' . Lead::anonymous()->count())
+                ->description('Anonymous: '.Lead::anonymous()->count())
                 ->descriptionIcon('heroicon-o-users')
                 ->color('primary'),
             Stat::make('Today', Lead::whereDate('created_at', today())->count())
-                ->description('Past 7 days: ' . Lead::where('created_at', '>=', now()->subDays(7))->count())
+                ->description('Past 7 days: '.Lead::where('created_at', '>=', now()->subDays(7))->count())
                 ->descriptionIcon('heroicon-o-calendar')
                 ->color('success'),
             Stat::make('Avg. Time Spent', function () {
@@ -25,7 +26,7 @@ class LeadStatsOverview extends BaseWidget
                     ->where('time_spent_seconds', '>', 0)
                     ->avg('time_spent_seconds');
 
-                return $avg ? gmdate('i:s', (int) $avg) . ' min' : '—';
+                return $avg ? gmdate('i:s', (int) $avg).' min' : '—';
             })
                 ->description('Across all visitors')
                 ->descriptionIcon('heroicon-o-clock')

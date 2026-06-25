@@ -10,7 +10,7 @@ class DeviceBreakdownChart extends ChartWidget
 {
     protected ?string $heading = 'Devices';
 
-    protected int | string | array $columnSpan = 'half';
+    protected int|string|array $columnSpan = 'half';
 
     protected function getData(): array
     {

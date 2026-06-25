@@ -4,7 +4,7 @@ namespace Tests\Feature\Models;
 
 use App\Models\Contact;
 use App\Models\ContactReply;
-use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -75,7 +75,7 @@ class ContactTest extends TestCase
         $contact = Contact::factory()->create();
         $contact->markAsReplied();
 
-        $this->assertInstanceOf(\Carbon\Carbon::class, $contact->fresh()->replied_at);
+        $this->assertInstanceOf(Carbon::class, $contact->fresh()->replied_at);
     }
 
     public function test_is_read_cast()

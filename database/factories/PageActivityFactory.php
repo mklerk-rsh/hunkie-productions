@@ -14,7 +14,7 @@ class PageActivityFactory extends Factory
     {
         return [
             'lead_id' => Lead::factory(),
-            'url' => '/' . fake()->slug(),
+            'url' => '/'.fake()->slug(),
             'page_title' => fake()->words(3, true),
             'action_type' => 'page_view',
             'metadata' => null,

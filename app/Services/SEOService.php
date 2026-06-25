@@ -24,7 +24,7 @@ class SEOService
 
     public function generateMetaTitle(?string $title, string $fallback, string $suffix = ' | Hunkie Productions'): string
     {
-        return $title ? $title . $suffix : $fallback . $suffix;
+        return $title ? $title.$suffix : $fallback.$suffix;
     }
 
     public function generateMetaDescription(?string $description, string $fallback): string

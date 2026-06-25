@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Menu;
 use App\Models\MenuItem;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -12,10 +13,10 @@ class MenuItemFactory extends Factory
     public function definition(): array
     {
         return [
-            'menu_id' => \App\Models\Menu::factory(),
+            'menu_id' => Menu::factory(),
             'parent_id' => null,
             'title' => fake()->randomElement(['Home', 'About', 'Portfolio', 'Services', 'Blog', 'Contact']),
-            'url' => '/' . fake()->randomElement(['', 'about', 'portfolio', 'services', 'blog', 'contact']),
+            'url' => '/'.fake()->randomElement(['', 'about', 'portfolio', 'services', 'blog', 'contact']),
             'route' => null,
             'target' => '_self',
             'icon' => null,

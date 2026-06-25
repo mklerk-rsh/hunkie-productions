@@ -24,6 +24,6 @@ trait HasSEO
 
     public function getSEOMetadata(): ?SEOMetadata
     {
-        return $this->seoMetadata()->first() ?? new SEOMetadata();
+        return $this->seoMetadata()->first() ?? new SEOMetadata;
     }
 }

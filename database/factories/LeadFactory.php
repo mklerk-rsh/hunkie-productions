@@ -65,7 +65,7 @@ class LeadFactory extends Factory
             'longitude' => fake()->longitude(),
             'user_agent' => fake()->userAgent(),
             'referrer_url' => fake()->url(),
-            'landing_page' => '/' . fake()->slug(),
+            'landing_page' => '/'.fake()->slug(),
             'time_spent_seconds' => fake()->numberBetween(10, 1800),
             'page_views_count' => fake()->numberBetween(1, 20),
             'device_type' => fake()->randomElement(['desktop', 'mobile', 'tablet']),

@@ -3,8 +3,8 @@
 namespace App\Filament\Resources\TestimonialResource\Pages;
 
 use App\Filament\Resources\TestimonialResource;
-use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Actions\CreateAction;
 
 class ListTestimonials extends ListRecords
 {
@@ -13,7 +13,7 @@ class ListTestimonials extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            CreateAction::make(),
         ];
     }
 }

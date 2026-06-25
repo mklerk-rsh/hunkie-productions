@@ -2,7 +2,6 @@
 
 namespace App\Filament\Widgets;
 
-use App\Models\Lead;
 use App\Models\Project;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Support\Facades\DB;

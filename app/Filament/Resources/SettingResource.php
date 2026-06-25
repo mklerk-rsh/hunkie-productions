@@ -4,14 +4,13 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\SettingResource\Pages;
 use App\Models\Setting;
-use Filament\Forms\Components\KeyValue;
-use Filament\Schemas\Components\Section;
-use Filament\Forms\Components\TextInput;
-use Filament\Schemas\Schema;
-use Filament\Resources\Resource;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Forms\Components\TextInput;
+use Filament\Resources\Resource;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -37,9 +36,8 @@ class SettingResource extends Resource
                             ->maxLength(255),
                         TextInput::make('value')
                             ->maxLength(500),
-                        KeyValue::make('json_value')
-                            ->label('JSON Value')
-                            ->columnSpanFull(),
+                        TextInput::make('group')
+                            ->maxLength(255),
                     ]),
             ]);
     }
@@ -74,8 +72,6 @@ class SettingResource extends Resource
     {
         return [
             'index' => Pages\ListSettings::route('/'),
-            'create' => Pages\CreateSetting::route('/create'),
-            'edit' => Pages\EditSetting::route('/{record}/edit'),
         ];
     }
 }

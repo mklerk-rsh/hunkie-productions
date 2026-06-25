@@ -26,7 +26,7 @@ class ContactReplyFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'quotation_path' => 'quotations/sample-quote.pdf',
-            'quotation_filename' => 'Quotation - ' . fake()->company() . '.pdf',
+            'quotation_filename' => 'Quotation - '.fake()->company().'.pdf',
         ]);
     }
 }

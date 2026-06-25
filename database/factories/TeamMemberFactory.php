@@ -26,8 +26,8 @@ class TeamMemberFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'phone' => fake()->phoneNumber(),
             'social_links' => [
-                'instagram' => 'https://instagram.com/' . fake()->userName(),
-                'linkedin' => 'https://linkedin.com/in/' . fake()->userName(),
+                'instagram' => 'https://instagram.com/'.fake()->userName(),
+                'linkedin' => 'https://linkedin.com/in/'.fake()->userName(),
             ],
             'display_order' => fake()->numberBetween(0, 10),
             'is_active' => true,

@@ -6,6 +6,7 @@ use App\Events\BlogPostPublished;
 use App\Events\ContactSubscribed;
 use App\Events\LeadCaptured;
 use App\Events\ProjectPublished;
+use App\Listeners\LogBlogPostPublished;
 use App\Listeners\LogContactSubscription;
 use App\Listeners\LogLeadCapture;
 use App\Listeners\LogProjectPublished;
@@ -21,7 +22,7 @@ class EventServiceProvider extends ServiceProvider
             LogProjectPublished::class,
         ],
         BlogPostPublished::class => [
-            LogProjectPublished::class,
+            LogBlogPostPublished::class,
         ],
         ContactSubscribed::class => [
             LogContactSubscription::class,

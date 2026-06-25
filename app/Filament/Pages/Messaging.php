@@ -14,7 +14,7 @@ class Messaging extends Page
 {
     use WithFileUploads;
 
-    protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-chat-bubble-left-right';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-chat-bubble-left-right';
 
     protected static string|\UnitEnum|null $navigationGroup = 'Leads';
 
@@ -22,11 +22,13 @@ class Messaging extends Page
 
     protected static ?string $slug = 'messages';
 
-    protected static string $view = 'filament.pages.messaging';
+    protected string $view = 'filament.pages.messaging';
 
     public ?int $selectedContactId = null;
 
     public string $newMessage = '';
+
+    public string $searchQuery = '';
 
     public array $attachments = [];
 
@@ -40,18 +42,28 @@ class Messaging extends Page
     {
         return Contact::withCount('replies')
             ->with(['replies' => fn ($q) => $q->latest()->take(1)])
+            ->when($this->searchQuery !== '', function ($query) {
+                $query->where(function ($query) {
+                    $query->where('name', 'like', "%{$this->searchQuery}%")
+                        ->orWhere('email', 'like', "%{$this->searchQuery}%")
+                        ->orWhere('subject', 'like', "%{$this->searchQuery}%")
+                        ->orWhere('message', 'like', "%{$this->searchQuery}%");
+                });
+            })
             ->orderByRaw('COALESCE((SELECT MAX(created_at) FROM contact_replies WHERE contact_id = contacts.id), contacts.created_at) DESC')
+            ->take(50)
             ->get();
     }
 
     public function getSelectedContactProperty()
     {
-        if (!$this->selectedContactId) {
+        if (! $this->selectedContactId) {
             return null;
         }
 
-        return Contact::with(['replies' => fn ($q) => $q->with('admin', 'media')->oldest()])
-            ->find($this->selectedContactId);
+        return Contact::with([
+            'replies' => fn ($q) => $q->with(['admin', 'media'])->oldest(),
+        ])->find($this->selectedContactId);
     }
 
     public function selectContact($id): void
@@ -61,7 +73,7 @@ class Messaging extends Page
         $this->attachments = [];
 
         $contact = Contact::find($this->selectedContactId);
-        if ($contact && !$contact->is_read) {
+        if ($contact && ! $contact->is_read) {
             $contact->markAsRead();
         }
     }
@@ -73,7 +85,7 @@ class Messaging extends Page
             'attachments.*' => 'nullable|file|mimes:jpg,jpeg,png,gif,webp,mp4,mov,avi,pdf,doc,docx,txt|max:102400',
         ]);
 
-        if (!$this->selectedContactId) {
+        if (! $this->selectedContactId) {
             return;
         }
 
@@ -110,7 +122,7 @@ class Messaging extends Page
             'quotationFile' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png|max:51200',
         ]);
 
-        if (!$this->selectedContactId) {
+        if (! $this->selectedContactId) {
             return;
         }
 

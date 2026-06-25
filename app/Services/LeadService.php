@@ -40,7 +40,7 @@ class LeadService
     {
         $existing = $lead->notes;
         $lead->update([
-            'notes' => $existing ? $existing . "\n\n" . $note : $note,
+            'notes' => $existing ? $existing."\n\n".$note : $note,
         ]);
 
         return $lead;

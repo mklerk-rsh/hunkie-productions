@@ -2,7 +2,6 @@
 
 namespace App\Filament\Widgets;
 
-use App\Models\Contact;
 use App\Models\Lead;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -10,7 +9,7 @@ use Filament\Widgets\TableWidget as BaseWidget;
 
 class LatestLeads extends BaseWidget
 {
-    protected int | string | array $columnSpan = 'half';
+    protected int|string|array $columnSpan = 'half';
 
     protected static ?string $heading = 'Latest Leads';
 

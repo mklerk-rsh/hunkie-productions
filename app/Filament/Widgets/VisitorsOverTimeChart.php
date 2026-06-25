@@ -10,7 +10,7 @@ class VisitorsOverTimeChart extends ChartWidget
 {
     protected ?string $heading = 'Visitors Over Time';
 
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
     protected function getData(): array
     {

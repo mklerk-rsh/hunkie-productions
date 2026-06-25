@@ -7,8 +7,8 @@ use App\Filament\Widgets\DeviceBreakdownChart;
 use App\Filament\Widgets\LeadStatsOverview;
 use App\Filament\Widgets\TrafficSourcesChart;
 use App\Filament\Widgets\VisitorsOverTimeChart;
-use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Actions\CreateAction;
 
 class ListLeads extends ListRecords
 {
@@ -17,7 +17,7 @@ class ListLeads extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            CreateAction::make(),
         ];
     }
 
@@ -31,7 +31,7 @@ class ListLeads extends ListRecords
         ];
     }
 
-    public function getDefaultHeaderWidgetsColumns(): int | array
+    public function getDefaultHeaderWidgetsColumns(): int|array
     {
         return 2;
     }

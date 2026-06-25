@@ -29,13 +29,26 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->emailVerification()
             ->colors([
-                'primary' => Color::Indigo,
+                'primary' => Color::hex('#1E40AF'),
+                'gray' => Color::Slate,
+                'warning' => Color::hex('#D4AF37'),
+                'danger' => Color::hex('#DC2626'),
+                'success' => Color::hex('#059669'),
             ])
             ->brandName('Hunkie Productions')
             ->favicon(asset('favicon.ico'))
-             ->navigationGroups([
+            ->brandLogo(fn () => view('filament.brand-logo'))
+            ->brandLogoHeight('2.5rem')
+            ->navigationGroups([
+                NavigationGroup::make('Bookings'),
                 NavigationGroup::make('Content'),
+                NavigationGroup::make('Portfolio'),
+                NavigationGroup::make('Social Gallery'),
+                NavigationGroup::make('Services'),
                 NavigationGroup::make('Leads'),
+                NavigationGroup::make('Finance'),
+                NavigationGroup::make('Analytics'),
+                NavigationGroup::make('Communication'),
                 NavigationGroup::make('Users'),
                 NavigationGroup::make('Structure'),
                 NavigationGroup::make('System'),
@@ -46,6 +59,7 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 AccountWidget::class,
             ])
+            ->renderHook('panels::head.start', fn () => view('filament.custom-styles'))
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

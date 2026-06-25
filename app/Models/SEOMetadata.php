@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 class SEOMetadata extends Model
 {
     protected $table = 'seo_metadata';
+
     protected $fillable = [
         'meta_title',
         'meta_description',

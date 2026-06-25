@@ -2,20 +2,20 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\ProjectStatus;
 use App\Filament\Resources\ProjectResource\Pages;
 use App\Models\Project;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\MarkdownEditor;
-use Filament\Schemas\Components\Section;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Schemas\Schema;
-use Filament\Resources\Resource;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
-use Filament\Tables\Columns\IconColumn;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\MarkdownEditor;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Resources\Resource;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -44,8 +44,9 @@ class ProjectResource extends Resource
                             ->unique(ignoreRecord: true)
                             ->maxLength(255),
                         Select::make('status')
-                            ->options(\App\Enums\ProjectStatus::class)
-                            ->required(),
+                            ->options(ProjectStatus::class)
+                            ->required()
+                            ->native(false),
                         Select::make('categories')
                             ->multiple()
                             ->relationship('categories', 'name'),
@@ -56,8 +57,11 @@ class ProjectResource extends Resource
                         TextInput::make('url')
                             ->url()
                             ->maxLength(500),
-                        DatePicker::make('started_at'),
-                        DatePicker::make('completed_at'),
+                        DatePicker::make('project_date')
+                            ->label('Project Date'),
+                        TextInput::make('completion_year')
+                            ->numeric()
+                            ->label('Completion Year'),
                     ]),
             ]);
     }
@@ -79,18 +83,21 @@ class ProjectResource extends Resource
                 TextColumn::make('client_name')
                     ->searchable()
                     ->toggleable(),
-                TextColumn::make('started_at')
+                TextColumn::make('project_date')
                     ->date()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('completed_at')
-                    ->date()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->label('Project Date'),
+                TextColumn::make('completion_year')
+                    ->numeric()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->label('Completion Year'),
             ])
             ->filters([
                 SelectFilter::make('status')
-                    ->options(\App\Enums\ProjectStatus::class),
+                    ->options(ProjectStatus::class)
+                    ->native(false),
                 SelectFilter::make('categories')
                     ->relationship('categories', 'name')
                     ->multiple(),
@@ -110,8 +117,6 @@ class ProjectResource extends Resource
     {
         return [
             'index' => Pages\ListProjects::route('/'),
-            'create' => Pages\CreateProject::route('/create'),
-            'edit' => Pages\EditProject::route('/{record}/edit'),
         ];
     }
 }

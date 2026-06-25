@@ -6,9 +6,11 @@ use App\Traits\HasMediaCollections;
 use App\Traits\HasSEO;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Spatie\Activitylog\Support\LogOptions;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Activitylog\Models\Concerns\LogsActivity;
+use Spatie\Activitylog\Support\LogOptions;
 
 class Project extends Model
 {
@@ -26,6 +28,7 @@ class Project extends Model
         'is_featured',
         'status',
         'published_at',
+        'service_category_id',
     ];
 
     protected function casts(): array
@@ -42,6 +45,21 @@ class Project extends Model
     {
         return $this->belongsToMany(Category::class, 'project_categories')
             ->withTimestamps();
+    }
+
+    public function serviceCategory(): BelongsTo
+    {
+        return $this->belongsTo(ServiceCategory::class);
+    }
+
+    public function portfolioMedia(): HasMany
+    {
+        return $this->hasMany(PortfolioMedia::class);
+    }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
     }
 
     public function scopePublished($query)

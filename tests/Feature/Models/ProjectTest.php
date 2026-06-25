@@ -2,10 +2,10 @@
 
 namespace Tests\Feature\Models;
 
-use App\Enums\ProjectStatus;
 use App\Models\Category;
 use App\Models\Project;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Carbon;
 use Tests\TestCase;
 
 class ProjectTest extends TestCase
@@ -58,6 +58,6 @@ class ProjectTest extends TestCase
         ]);
 
         $this->assertIsBool($project->is_featured);
-        $this->assertInstanceOf(\Illuminate\Support\Carbon::class, $project->published_at);
+        $this->assertInstanceOf(Carbon::class, $project->published_at);
     }
 }

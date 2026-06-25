@@ -3,8 +3,8 @@
 namespace App\Filament\Resources\FAQResource\Pages;
 
 use App\Filament\Resources\FAQResource;
-use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Actions\CreateAction;
 
 class ListFAQS extends ListRecords
 {
@@ -13,7 +13,7 @@ class ListFAQS extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            CreateAction::make(),
         ];
     }
 }

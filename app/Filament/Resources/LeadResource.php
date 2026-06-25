@@ -2,19 +2,19 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\LeadSource;
+use App\Enums\LeadStatus;
 use App\Filament\Resources\LeadResource\Pages;
 use App\Models\Lead;
-use Filament\Schemas\Components\Section;
-use Filament\Forms\Components\Group;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\TextInput;
-use Filament\Schemas\Schema;
-use Filament\Resources\Resource;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
-use Filament\Tables\Columns\IconColumn;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Resources\Resource;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
@@ -60,11 +60,13 @@ class LeadResource extends Resource
                 Section::make('Lead Details')
                     ->schema([
                         Select::make('status')
-                            ->options(\App\Enums\LeadStatus::class)
-                            ->required(),
+                            ->options(LeadStatus::class)
+                            ->required()
+                            ->native(false),
                         Select::make('source')
-                            ->options(\App\Enums\LeadSource::class)
-                            ->required(),
+                            ->options(LeadSource::class)
+                            ->required()
+                            ->native(false),
                         TextInput::make('lead_score')
                             ->numeric()
                             ->minValue(0)
@@ -162,9 +164,11 @@ class LeadResource extends Resource
             ->defaultSort('created_at', 'desc')
             ->filters([
                 SelectFilter::make('status')
-                    ->options(\App\Enums\LeadStatus::class),
+                    ->options(LeadStatus::class)
+                    ->native(false),
                 SelectFilter::make('source')
-                    ->options(\App\Enums\LeadSource::class),
+                    ->options(LeadSource::class)
+                    ->native(false),
                 SelectFilter::make('device_type')
                     ->options([
                         'desktop' => 'Desktop',
@@ -172,7 +176,7 @@ class LeadResource extends Resource
                         'tablet' => 'Tablet',
                     ]),
                 Filter::make('new')
-                    ->query(fn (Builder $q) => $q->where('status', \App\Enums\LeadStatus::New))
+                    ->query(fn (Builder $q) => $q->where('status', LeadStatus::New))
                     ->label('New Leads'),
                 Filter::make('anonymous')
                     ->query(fn (Builder $q) => $q->whereNull('email'))
@@ -182,8 +186,8 @@ class LeadResource extends Resource
                 Action::make('convert_to_client')
                     ->label('Convert')
                     ->icon('heroicon-o-check-badge')
-                    ->action(fn (Lead $record) => $record->update(['status' => \App\Enums\LeadStatus::Converted]))
-                    ->hidden(fn (Lead $record) => $record->status === \App\Enums\LeadStatus::Converted),
+                    ->action(fn (Lead $record) => $record->update(['status' => LeadStatus::Converted]))
+                    ->hidden(fn (Lead $record) => $record->status === LeadStatus::Converted),
             ])
             ->bulkActions([
                 BulkActionGroup::make([
@@ -196,8 +200,6 @@ class LeadResource extends Resource
     {
         return [
             'index' => Pages\ListLeads::route('/'),
-            'create' => Pages\CreateLead::route('/create'),
-            'edit' => Pages\EditLead::route('/{record}/edit'),
         ];
     }
 }

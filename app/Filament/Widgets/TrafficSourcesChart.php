@@ -2,6 +2,7 @@
 
 namespace App\Filament\Widgets;
 
+use App\Enums\LeadSource;
 use App\Models\Lead;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Support\Facades\DB;
@@ -10,7 +11,7 @@ class TrafficSourcesChart extends ChartWidget
 {
     protected ?string $heading = 'Traffic Sources';
 
-    protected int | string | array $columnSpan = 'half';
+    protected int|string|array $columnSpan = 'half';
 
     protected function getData(): array
     {
@@ -19,7 +20,7 @@ class TrafficSourcesChart extends ChartWidget
             ->pluck('total', 'source')
             ->toArray();
 
-        $labels = array_map(fn ($s) => \App\Enums\LeadSource::tryFrom($s)?->label() ?? ucfirst($s), array_keys($data));
+        $labels = array_map(fn ($s) => LeadSource::tryFrom($s)?->label() ?? ucfirst($s), array_keys($data));
 
         return [
             'datasets' => [

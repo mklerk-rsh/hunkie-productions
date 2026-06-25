@@ -5,14 +5,13 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\MenuResource\Pages;
 use App\Filament\Resources\MenuResource\RelationManagers;
 use App\Models\Menu;
-use Filament\Schemas\Components\Section;
-use Filament\Forms\Components\TextInput;
-use Filament\Schemas\Schema;
-use Filament\Resources\Resource;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Tables\Columns\IconColumn;
+use Filament\Forms\Components\TextInput;
+use Filament\Resources\Resource;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -35,7 +34,7 @@ class MenuResource extends Resource
                         TextInput::make('name')
                             ->required()
                             ->maxLength(255),
-                        TextInput::make('slug')
+                        TextInput::make('handle')
                             ->required()
                             ->unique(ignoreRecord: true)
                             ->maxLength(255),
@@ -53,15 +52,12 @@ class MenuResource extends Resource
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('slug')
+                TextColumn::make('handle')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('items_count')
+                TextColumn::make('menu_items_count')
                     ->counts('menuItems')
                     ->label('Items'),
-                IconColumn::make('is_active')
-                    ->boolean()
-                    ->label('Active'),
             ])
             ->filters([])
             ->actions([
@@ -85,8 +81,6 @@ class MenuResource extends Resource
     {
         return [
             'index' => Pages\ListMenus::route('/'),
-            'create' => Pages\CreateMenu::route('/create'),
-            'edit' => Pages\EditMenu::route('/{record}/edit'),
         ];
     }
 }

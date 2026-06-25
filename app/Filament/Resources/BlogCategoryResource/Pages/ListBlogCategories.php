@@ -3,8 +3,8 @@
 namespace App\Filament\Resources\BlogCategoryResource\Pages;
 
 use App\Filament\Resources\BlogCategoryResource;
-use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Actions\CreateAction;
 
 class ListBlogCategories extends ListRecords
 {
@@ -13,7 +13,7 @@ class ListBlogCategories extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            CreateAction::make(),
         ];
     }
 }

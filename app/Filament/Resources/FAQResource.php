@@ -4,16 +4,16 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\FAQResource\Pages;
 use App\Models\FAQ;
-use Filament\Schemas\Components\Section;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\TextInput;
-use Filament\Schemas\Schema;
-use Filament\Resources\Resource;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ReplicateAction;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Resources\Resource;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -48,8 +48,9 @@ class FAQResource extends Resource
                                 'pricing' => 'Pricing',
                                 'technical' => 'Technical',
                                 'other' => 'Other',
-                            ]),
-                        TextInput::make('sort_order')
+                            ])
+                            ->native(false),
+                        TextInput::make('display_order')
                             ->numeric()
                             ->default(0),
                     ]),
@@ -59,8 +60,8 @@ class FAQResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->reorderable('sort_order')
-            ->defaultSort('sort_order')
+            ->reorderable('display_order')
+            ->defaultSort('display_order')
             ->columns([
                 TextColumn::make('question')
                     ->searchable()
@@ -71,7 +72,7 @@ class FAQResource extends Resource
                 IconColumn::make('is_published')
                     ->boolean()
                     ->label('Published'),
-                TextColumn::make('sort_order')
+                TextColumn::make('display_order')
                     ->numeric()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -101,8 +102,6 @@ class FAQResource extends Resource
     {
         return [
             'index' => Pages\ListFAQS::route('/'),
-            'create' => Pages\CreateFAQ::route('/create'),
-            'edit' => Pages\EditFAQ::route('/{record}/edit'),
         ];
     }
 }

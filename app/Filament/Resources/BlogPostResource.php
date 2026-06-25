@@ -4,17 +4,17 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\BlogPostResource\Pages;
 use App\Models\BlogPost;
-use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\MarkdownEditor;
-use Filament\Schemas\Components\Section;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TagsInput;
-use Filament\Forms\Components\TextInput;
-use Filament\Schemas\Schema;
-use Filament\Resources\Resource;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\MarkdownEditor;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TagsInput;
+use Filament\Forms\Components\TextInput;
+use Filament\Resources\Resource;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\Filter;
@@ -49,7 +49,8 @@ class BlogPostResource extends Resource
                             ->maxLength(255),
                         Select::make('blog_category_id')
                             ->relationship('category', 'name')
-                            ->label('Category'),
+                            ->label('Category')
+                            ->native(false),
                         TagsInput::make('tags')
                             ->relationship('tags', 'name'),
                         MarkdownEditor::make('content')
@@ -61,7 +62,8 @@ class BlogPostResource extends Resource
                         Select::make('author_id')
                             ->relationship('author', 'name')
                             ->required()
-                            ->default(fn () => auth()->id()),
+                            ->default(fn () => auth()->id())
+                            ->native(false),
                         DateTimePicker::make('published_at'),
                     ]),
             ]);
@@ -111,8 +113,6 @@ class BlogPostResource extends Resource
     {
         return [
             'index' => Pages\ListBlogPosts::route('/'),
-            'create' => Pages\CreateBlogPost::route('/create'),
-            'edit' => Pages\EditBlogPost::route('/{record}/edit'),
         ];
     }
 }

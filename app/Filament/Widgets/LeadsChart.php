@@ -2,6 +2,7 @@
 
 namespace App\Filament\Widgets;
 
+use App\Enums\LeadStatus;
 use App\Models\Lead;
 use Filament\Widgets\ChartWidget;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +18,7 @@ class LeadsChart extends ChartWidget
             ->pluck('total', 'status')
             ->toArray();
 
-        $labels = array_map(fn ($s) => \App\Enums\LeadStatus::tryFrom($s)?->label() ?? ucfirst($s), array_keys($data));
+        $labels = array_map(fn ($s) => LeadStatus::tryFrom($s)?->label() ?? ucfirst($s), array_keys($data));
 
         return [
             'datasets' => [
